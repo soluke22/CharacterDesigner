@@ -64,29 +64,23 @@ int main()
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
-        //Update
-
         float deltaTime = GetFrameTime();
 
         if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP))
         {
-
             currentCharacter.headRect.y -= currentCharacter.speed * deltaTime;
             currentCharacter.bodyRect.y -= currentCharacter.speed * deltaTime;
         }
         else if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN))
         {
-
             currentCharacter.headRect.y += currentCharacter.speed * deltaTime;
             currentCharacter.bodyRect.y += currentCharacter.speed * deltaTime;
         }
 
         if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT))
         {
-
             currentCharacter.headRect.x -= currentCharacter.speed * deltaTime;
             currentCharacter.bodyRect.x -= currentCharacter.speed * deltaTime;
-
         }
         else if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT))
         {
@@ -94,7 +88,6 @@ int main()
             currentCharacter.bodyRect.x += currentCharacter.speed * deltaTime;
         }
 
-        // Draw
         BeginDrawing();
 
         ClearBackground(RAYWHITE);
@@ -194,11 +187,7 @@ void SaveCharacter(const std::string& filename, const Character& character)
     std::ofstream file(filename, std::ios::binary);
     if (file)
     {
-        file.write(reinterpret_cast<const char*>(&character.headRect.x), sizeof(float));
-        file.write(reinterpret_cast<const char*>(&character.headRect.y), sizeof(float));
-        file.write(reinterpret_cast<const char*>(&character.bodyRect.x), sizeof(float));
-        file.write(reinterpret_cast<const char*>(&character.bodyRect.y), sizeof(float));
-
+        file.write(reinterpret_cast<const char*>(&character), sizeof(Character));
         file.close();
     }
 }
